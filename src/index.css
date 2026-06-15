@@ -1,0 +1,445 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  
+  --color-brand-purple: #8b5cf6;
+  --color-brand-blue: #3b82f6;
+  --color-brand-dark: #050508;
+  --color-brand-charcoal: #0a0a0f;
+}
+
+@utility bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(139, 92, 246, 0.04) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
+}
+
+@utility text-glow-purple {
+  text-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+}
+
+@utility text-glow-blue {
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-brand-dark);
+    color: #f3f4f6;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-brand-dark);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #111119;
+    border-radius: 4px;
+    border: 2px solid var(--color-brand-dark);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #252238;
+  }
+
+  /* Selection style */
+  ::selection {
+    background: rgba(139, 92, 246, 0.35);
+    color: #ffffff;
+  }
+}
+
+/* Custom glow particles animation */
+@keyframes float-particle {
+  0% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-80px) translateX(30px) scale(1.15);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.25;
+  }
+}
+
+.animate-float-1 {
+  animation: float-particle 14s infinite ease-in-out;
+}
+
+.animate-float-2 {
+  animation: float-particle 18s infinite ease-in-out -4s;
+}
+
+.animate-float-3 {
+  animation: float-particle 22s infinite ease-in-out -8s;
+}
+
+/* Glassmorphism glass card */
+.glass-banner {
+  background: rgba(5, 5, 8, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 16px 40px -15px rgba(139, 92, 246, 0.1);
+}
+
+.bento-card-dark {
+  background: #0a0a0f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card-dark:hover {
+  border-color: rgba(59, 130, 246, 0.25);
+  background: #0e0e15;
+  box-shadow: 0 16px 40px -15px rgba(59, 130, 246, 0.1);
+}
+
+.bento-card-glow {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card-glow:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(59, 130, 246, 0.12) 100%);
+  box-shadow: 0 16px 40px -15px rgba(139, 92, 246, 0.15);
+}
+
+.custom-cursor {
+  width: 12px;
+  height: 12px;
+  background-color: #8b5cf6;
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  box-shadow: 0 0 10px #8b5cf6, 0 0 20px #3b82f6;
+  transition: width 0.1s, height 0.1s, background-color 0.1s;
+}
+
+.custom-cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(59, 130, 246, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.12s ease-out, border-color 0.2s;
+}
+
+@media (max-width: 768px) {
+  .custom-cursor, .custom-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* Global Light Mode Overrides */
+.light-mode {
+  background-color: #fafafa !important;
+  color: #0f172a !important;
+}
+
+.light-mode html,
+.light-mode body,
+.light-mode #loader-screen {
+  background-color: #fafafa !important;
+  color: #0f172a !important;
+}
+
+.light-mode section,
+.light-mode footer,
+.light-mode #home,
+.light-mode #about,
+.light-mode #skills,
+.light-mode #experience,
+.light-mode #projects,
+.light-mode #certifications,
+.light-mode #github-showcase,
+.light-mode #contact,
+.light-mode #footer-section {
+  background-color: #fafafa !important;
+}
+
+/* Custom Scrollbar for Light Mode */
+.light-mode ::-webkit-scrollbar-track {
+  background: #fafafa !important;
+}
+.light-mode ::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 4px;
+  border: 2px solid #fafafa !important;
+}
+.light-mode ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8 !important;
+}
+
+/* Navbar glass setup in light mode when scrolled */
+.light-mode #main-navbar.bg-\[\#050508\]\/80 {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Overriding section background details & subheaders */
+.light-mode [class*="bg-[#050508]"] {
+  background-color: #fafafa !important;
+}
+
+.light-mode [class*="bg-[#0a0a0f]"] {
+  background-color: #ffffff !important;
+}
+
+/* Card wrappers and bento card designs */
+.light-mode .bg-\[\#0a0a0f\],
+.light-mode .bg-\[\#0a0a0f\]\/40,
+.light-mode .bg-white\/\[0\.01\],
+.light-mode .bg-white\/\[0\.02\],
+.light-mode .bg-white\/\[0\.03\],
+.light-mode .bg-white\/\[0\.05\],
+.light-mode .bg-white\/5,
+.light-mode .bg-white\/10,
+.light-mode .bento-card-dark,
+.light-mode .bento-card-glow,
+.light-mode .glass-card,
+.light-mode .clickable-card {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.light-mode .bento-card-dark:hover,
+.light-mode .bento-card-glow:hover,
+.light-mode .glass-card:hover,
+.light-mode [class*="clickable-card"]:hover {
+  background-color: #ffffff !important;
+  border-color: #8b5cf6 !important;
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.12) !important;
+  transform: translateY(-4px) !important;
+}
+
+.light-mode .border-white\/20,
+.light-mode .border-white\/15,
+.light-mode .border-white\/10,
+.light-mode .border-white\/5,
+.light-mode .border-transparent {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Texts mapping rules - Ensuring Perfect Contrast with AA/AAA criteria */
+.light-mode .text-white,
+.light-mode [class*="text-white"],
+.light-mode [class*="text-slate-100"],
+.light-mode [class*="text-slate-200"],
+.light-mode [class*="text-slate-300"],
+.light-mode [class*="text-gray-100"],
+.light-mode [class*="text-gray-200"],
+.light-mode [class*="text-gray-300"] {
+  color: #0f172a !important; /* Deep charcoal/slate-900 */
+}
+
+.light-mode .text-white\/90,
+.light-mode [class*="text-white/90"],
+.light-mode [class*="text-white\/90"] {
+  color: #0f172a !important;
+}
+
+.light-mode .text-white\/80,
+.light-mode .text-white\/70,
+.light-mode [class*="text-white/80"],
+.light-mode [class*="text-white/70"],
+.light-mode [class*="text-white\/80"],
+.light-mode [class*="text-white\/70"],
+.light-mode .text-slate-200,
+.light-mode .text-slate-300,
+.light-mode .text-gray-300 {
+  color: #1e293b !important; /* Slate-800 */
+}
+
+.light-mode .text-white\/60,
+.light-mode .text-white\/55,
+.light-mode .text-white\/50,
+.light-mode [class*="text-white/60"],
+.light-mode [class*="text-white/55"],
+.light-mode [class*="text-white/50"],
+.light-mode [class*="text-white\/60"],
+.light-mode [class*="text-white\/55"],
+.light-mode [class*="text-white\/50"],
+.light-mode .text-gray-400,
+.light-mode .text-slate-400,
+.light-mode .text-zinc-300,
+.light-mode .text-zinc-400 {
+  color: #334155 !important; /* Slate-700 */
+}
+
+.light-mode .text-white\/40,
+.light-mode .text-white\/30,
+.light-mode [class*="text-white/40"],
+.light-mode [class*="text-white/30"],
+.light-mode [class*="text-white\/40"],
+.light-mode [class*="text-white\/30"],
+.light-mode .text-gray-500,
+.light-mode .text-slate-500,
+.light-mode .text-zinc-500 {
+  color: #475569 !important; /* Slate-600 helper */
+}
+
+/* Color category text overrides in light mode for proper contrast */
+.light-mode .text-emerald-400,
+.light-mode .text-emerald-500 {
+  color: #047857 !important; /* deep emerald green */
+}
+
+.light-mode .text-amber-400,
+.light-mode .text-amber-500,
+.light-mode .text-yellow-400,
+.light-mode .text-yellow-500 {
+  color: #b45309 !important; /* deep golden amber */
+}
+
+.light-mode .text-sky-400,
+.light-mode .text-sky-500,
+.light-mode .text-blue-400,
+.light-mode .text-blue-500,
+.light-mode .text-brand-blue {
+  color: #1d4ed8 !important; /* deep rich blue */
+}
+
+.light-mode .text-purple-400,
+.light-mode .text-purple-500,
+.light-mode .text-brand-purple {
+  color: #6d28d9 !important; /* deep rich purple */
+}
+
+/* Keep text bright white for buttons and badges with solid dark background colors in light mode */
+.light-mode .bg-brand-purple .text-white,
+.light-mode .bg-brand-purple .text-slate-100,
+.light-mode .bg-brand-blue .text-white,
+.light-mode .bg-gradient-to-r .text-white,
+.light-mode .bg-gradient-to-tr .text-white,
+.light-mode [class*="bg-brand-"] .text-white,
+.light-mode [class*="bg-indigo-"] .text-white,
+.light-mode [class*="bg-purple-"] .text-white,
+.light-mode [class*="bg-blue-"] .text-white,
+.light-mode [class*="bg-emerald-"] .text-white,
+.light-mode .bg-emerald-600 .text-white,
+.light-mode .bg-indigo-600 .text-white,
+.light-mode button.bg-gradient-to-r .text-white,
+.light-mode button.bg-brand-purple .text-white,
+.light-mode button.bg-brand-blue .text-white,
+.light-mode a.bg-gradient-to-r,
+.light-mode button.bg-gradient-to-r {
+  color: #ffffff !important;
+}
+
+.light-mode .bg-brand-dark\/50 {
+  background-color: #f1f5f9 !important;
+}
+
+.light-mode select,
+.light-mode textarea,
+.light-mode input {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.light-mode .text-glow-purple {
+  text-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+}
+
+.light-mode .text-glow-blue {
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+}
+
+.light-mode #mobile-nav-panel {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+.light-mode #mobile-nav-panel a {
+  background-color: #f1f5f9 !important;
+  border-color: rgba(0, 0, 0, 0.04) !important;
+  color: #334155 !important;
+}
+
+.light-mode #mobile-nav-panel a:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.light-mode #mobile-nav-panel a.bg-gradient-to-r {
+  background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1)) !important;
+  border-color: rgba(139, 92, 246, 0.25) !important;
+  color: #8b5cf6 !important;
+  font-weight: 600 !important;
+}
+
+/* Desktop Navbar menu in light mode */
+.light-mode #main-navbar nav {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light-mode #main-navbar nav a {
+  color: #475569 !important;
+}
+
+.light-mode #main-navbar nav a:hover {
+  color: #0f172a !important;
+}
+
+.light-mode #main-navbar nav a.text-white {
+  color: #8b5cf6 !important;
+  font-weight: 600 !important;
+}
+
+.light-mode .custom-cursor {
+  mix-blend-mode: multiply !important;
+}
+
+.light-mode ::selection {
+  background: rgba(139, 92, 246, 0.15) !important;
+  color: #000000 !important;
+}
+
+/* Scrollbar utility hiding helper on scrollable wrappers */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari and Opera */
+}
+
